@@ -34,18 +34,15 @@
 
                 </RelativeLayout>
 
-
-
-
-
-
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:onClick="AddTodo"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:src="@drawable/ic_add_todo"
             android:layout_gravity="bottom|right"
             app:fabSize="normal"/>

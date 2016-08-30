@@ -1,6 +1,8 @@
 package com.marocks.todo;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     RecyclerView todoList;
     ToDoAdapter  adapter;
     SwipeRefreshLayout swipeRefreshLayout;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +33,32 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private void init() {
         todoList = (RecyclerView) findViewById(R.id.todoList);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         swipeRefreshLayout.setColorSchemeResources(new int[]{R.color.colorAccent});
         swipeRefreshLayout.setOnRefreshListener(this);
         todoList.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ToDoAdapter(this,new ArrayList<Todo>());
         todoList.setAdapter(adapter);
+
+        todoList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx,int dy){
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy >0) {
+                    // Scroll Down
+                    if (fab.isShown()) {
+                        fab.hide();
+                    }
+                }
+                else if (dy <0) {
+                    // Scroll Up
+                    if (!fab.isShown()) {
+                        fab.show();
+                    }
+                }
+            }
+        });
     }
 
     public void AddTodo(View view) {

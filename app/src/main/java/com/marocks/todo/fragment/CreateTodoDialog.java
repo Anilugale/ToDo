@@ -82,7 +82,7 @@ public  class CreateTodoDialog {
         } else {
 
             Animator anim =
-                    ViewAnimationUtils.createCircularReveal(view, w1 , h1 , maxRadius, 0);
+                    ViewAnimationUtils.createCircularReveal(view, w1+(fromView.getWidth()/2) , h1 , maxRadius, 0);
             anim.setDuration(500);
             anim.addListener(new AnimatorListenerAdapter() {
                 @Override
