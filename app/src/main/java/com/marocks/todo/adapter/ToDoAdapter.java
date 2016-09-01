@@ -16,6 +16,8 @@ import com.marocks.todo.R;
 import com.marocks.todo.TodoDetail;
 import com.marocks.todo.Utile;
 import com.marocks.todo.model.Todo;
+import com.marocks.todo.ui.LoginView;
+import com.marocks.todo.ui.SignUp;
 
 import java.util.List;
 
@@ -47,7 +49,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, TodoDetail.class);
+                Intent intent = new Intent(context,LoginView.class);
                 Utile.tempTodo=todo;
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((MainActivity)context, (View)holder.holder, "holder");

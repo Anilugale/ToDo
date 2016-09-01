@@ -1,6 +1,10 @@
 package com.marocks.todo;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 
 import com.marocks.todo.model.Todo;
 
@@ -8,8 +12,20 @@ import com.marocks.todo.model.Todo;
   Created by anil on 23/8/16.
  */
 public class Utile {
+
+
+
     public static boolean isToDoCreated;
     public static Todo tempTodo;
+
+
+    public static final String nameJson = "name";
+    public static final String passwordJson = "password";
+    public static final String password_confirmationJson="password_confirmation";
+    public static final String domainJson="domain_name";
+    public static final String emailJson="email";
+    public static final String autTokenJson="auth_token";
+
 
     public static void clearTempTODO() {
          isToDoCreated= false;
@@ -50,6 +66,32 @@ public class Utile {
         }
         return 0;
 
+    }
+
+
+    public  static boolean isValidEmail(CharSequence target) {
+        return  !TextUtils.isEmpty(target.toString().trim()) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
+    public  static boolean isEmptyText(CharSequence target) {
+        return !TextUtils.isEmpty(target.toString().trim());
+    }
+
+
+    public  static void showErrorDialog(Context context,int text){
+
+        final AlertDialog.Builder dialog= new AlertDialog.Builder(context)
+                .setMessage(text)
+                .setTitle("")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i){
+                                dialogInterface.dismiss();
+                            }
+                        }
+
+                );
+        dialog.show();
     }
 
 }

@@ -18,16 +18,23 @@ import org.json.JSONObject;
  */
 public class ApiUtil {
 
+    public static final String baseUrl = "http://happytodo.int2root.com/";
+    public static final String signUp = baseUrl+"/v1/signup";
+    public static final String signIn = baseUrl+"/v1/signin";
+
+
     public static final String TAG = ApiUtil.class.getSimpleName();
 
-    public static void jsonRequest(final HandleResponce handleResponce,String url,JSONObject jsonObject){
+    public static void jsonRequest(final HandleResponce handleResponce,String url,JSONObject jsonObject,int method){
         // Tag used to cancel the request
         String tag_json_obj = "json_obj_req";
 
+        System.out.println(jsonObject.toString());
 
 
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(method,
                 url, jsonObject,
                 new Response.Listener<JSONObject>() {
 
