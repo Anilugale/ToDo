@@ -4,6 +4,7 @@
     android:id="@+id/holder"
     android:transitionName="holder"
     android:layout_width="match_parent"
+    android:layout_marginBottom="1dp"
     android:layout_height="wrap_content">
 
     <RelativeLayout
@@ -20,22 +21,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/desp"
-            android:layout_below="@+id/title"
-            android:text="desc"
-            android:textStyle="normal"
-            android:layout_marginTop="4dp"
-            android:textSize="14sp"
-            android:maxLines="3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+
 
 
         <TextView
             android:id="@+id/time"
             android:layout_below="@+id/title"
-            android:text="desc"
+            android:text="time"
             android:textStyle="normal"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
@@ -44,22 +36,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_below="@+id/title"
-            android:text="desc"
-            android:textStyle="normal"
-            android:layout_marginTop="4dp"
-            android:textSize="14sp"
-            android:maxLines="3"
-            android:layout_toLeftOf="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+
 
     </RelativeLayout>
-    <View
+   <!-- <View
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
-        android:background="@color/grey"/>
+        android:background="@color/grey"/>-->
 </android.support.v7.widget.CardView>

@@ -4,8 +4,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 
 import com.marocks.todo.model.ToDoItem;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
   Created by anil on 23/8/16.
@@ -93,4 +101,49 @@ public class Utile {
         dialog.show();
     }
 
+    public  static String  formattedDate(String datestr,String time) {
+        //2016-10-05
+        //2000-01-01T09:13:48.000Z
+
+        if(datestr == null || time == null){
+            return  "";
+        }
+        try {
+
+            Date date = getDateParse(datestr,time);
+            return DateUtils.getRelativeTimeSpanString(date.getTime()).toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "timeStr";
+    }
+
+    public  static Date  getDateParse(String datestr,String time) {
+
+        if(datestr == null || time == null){
+            return  null;
+        }
+
+        String timeStr = getTimeParse(time);
+        String date_s = datestr+" "+timeStr;
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        Date date = null;
+        try {
+             date = dt.parse(date_s);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
+    }
+
+
+    public static String getTimeParse(String schedule_name) {
+
+        schedule_name = schedule_name.split("T")[1];
+        return schedule_name.substring(0,8);
+    }
 }

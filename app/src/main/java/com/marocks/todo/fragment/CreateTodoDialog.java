@@ -3,11 +3,13 @@ package com.marocks.todo.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.CheckBox;
@@ -44,6 +46,11 @@ public  class CreateTodoDialog {
         AlertDialog.Builder builder =  new AlertDialog.Builder(context);
         builder.setView(dialogView)
                 .setCancelable(false);
+        final TextView note= (TextView) dialogView.findViewById(R.id.note);
+        final EditText dateTx= (EditText) dialogView.findViewById(R.id.date);
+        final EditText time= (EditText) dialogView.findViewById(R.id.time);
+        final RadioGroup radioGroup= (RadioGroup) dialogView.findViewById(R.id.radioGrp);
+
 
 
         final AlertDialog dialog = builder.create();
@@ -59,16 +66,23 @@ public  class CreateTodoDialog {
                 revealShow(dialogView, false, dialog,view);
             }
         });
+
+        dialog.setOnKeyListener(new Dialog.OnKeyListener() {
+
+            @Override
+            public boolean onKey(DialogInterface dialog1, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    revealShow(dialogView, false, dialog,view);
+                }
+                return true;
+            }
+
+
+        });
         dialogView.findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
-
-                TextView note= (TextView) dialogView.findViewById(R.id.note);
-                EditText date= (EditText) dialogView.findViewById(R.id.date);
-                EditText time= (EditText) dialogView.findViewById(R.id.time);
-                RadioGroup radioGroup= (RadioGroup) dialogView.findViewById(R.id.radioGrp);
 
                 if(note.getText().toString().trim().length() ==0){
                     note.setError("Please Update note for Todo");
@@ -82,16 +96,14 @@ public  class CreateTodoDialog {
                 toDoItemUpload.setDesc(note.getText().toString());
                 toDoItemUpload.setState("pending");
                 Schedule schedule = new Schedule();
-                schedule.setDate(date.getText().toString());
-                schedule.setTime(date.getText().toString()+"T0"+time.getText().toString().trim()+":00.007Z");
+                schedule.setDate(dateTx.getText().toString());
+                schedule.setTime(dateTx.getText().toString()+"T0"+time.getText().toString().trim()+":00.007Z");
 
                 if(radioGroup.getCheckedRadioButtonId() == R.id.daily){
                     schedule.setRule("daily");
                 }else {
                     schedule.setRule("weekly");
                     schedule.setDay(getSelectDays(dialogView));
-
-
                 }
 
                 toDoItemUpload.setSchedule_attributes(schedule);
@@ -100,7 +112,12 @@ public  class CreateTodoDialog {
                 toDoItemUpload.setPriority((int) (Math.abs(Math.random()*100)%10));
 
                 try {
-                    ApiUtil.jsonRequest(mainActivity,ApiUtil.todos,new JSONObject("{ \"todo\":"+ApiUtil.gson.toJson(toDoItemUpload)+"}"), Request.Method.POST);
+                    if(Utile.tempTodo==null) {
+                        ApiUtil.jsonRequest(mainActivity, ApiUtil.todos, new JSONObject("{ \"todo\":" + ApiUtil.gson.toJson(toDoItemUpload) + "}"), Request.Method.POST);
+                    }else{
+                        ApiUtil.jsonRequest(mainActivity, ApiUtil.todos+"/"+Utile.tempTodo.getId(), new JSONObject("{ \"todo\":" + ApiUtil.gson.toJson(toDoItemUpload) + "}"), Request.Method.PUT);
+                    }
+                    Utile.tempTodo= null;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -141,8 +158,8 @@ public  class CreateTodoDialog {
                 dpd.show();
             }
         });
-        String time =now.get(Calendar.HOUR_OF_DAY)+ ":"+(now.get(Calendar.MINUTE) + 1);
-        ((EditText)dialog.findViewById(R.id.time)).setText(time);
+        String timestr =now.get(Calendar.HOUR_OF_DAY)+ ":"+(now.get(Calendar.MINUTE) + 1);
+        ((EditText)dialog.findViewById(R.id.time)).setText(timestr);
         dialog.findViewById(R.id.time).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -181,6 +198,16 @@ public  class CreateTodoDialog {
                 }
             }
         });
+
+
+        if(Utile.tempTodo!=null){
+            note.setText(Utile.tempTodo.getDesc());
+            dateTx.setText(Utile.tempTodo.getSchedule().getDate());
+            time.setText(Utile.getTimeParse(Utile.tempTodo.getSchedule().getTime()));
+       }
+
+
+
 
     }
 
@@ -246,6 +273,7 @@ public  class CreateTodoDialog {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
+                    if(dialog!=null)
                     dialog.dismiss();
                     view.setVisibility(View.INVISIBLE);
                 }

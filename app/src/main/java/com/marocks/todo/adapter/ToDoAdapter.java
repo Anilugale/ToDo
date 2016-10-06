@@ -1,8 +1,6 @@
 package com.marocks.todo.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +11,8 @@ import android.widget.TextView;
 
 import com.marocks.todo.MainActivity;
 import com.marocks.todo.R;
-import com.marocks.todo.TodoDetail;
 import com.marocks.todo.Utile;
+import com.marocks.todo.fragment.CreateTodoDialog;
 import com.marocks.todo.model.ToDoItem;
 
 import java.util.ArrayList;
@@ -42,22 +40,20 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
         final ToDoItem todo = dataList.get(position);
-        holder.title.setText(todo.getSchedule_name());
-        holder.descp.setText(todo.getDesc());
+        holder.title.setText( todo.getDesc());
+
         if(todo.getSchedule()!=null){
-            holder.date.setText(todo.getSchedule().getDate() != null ? todo.getSchedule().getDate() : "");
-            holder.time.setText(todo.getSchedule().getTime() != null ? todo.getSchedule().getTime() : "");
+           String dateSrtr =Utile.formattedDate(todo.getSchedule().getDate(),todo.getSchedule().getTime());
+            holder.time.setText(dateSrtr);
         }
-        holder.holder.setBackgroundColor(ContextCompat.getColor(context, Utile.getPriorityColor(todo.getPriority())));
+
+        holder.holder.setBackgroundColor(ContextCompat.getColor(context, Utile.getPriorityColor(position%10)));
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,TodoDetail.class);
-                Utile.tempTodo=todo;
-                ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation((MainActivity)context, (View)holder.holder, "holder");
-                context.startActivity(intent, options.toBundle());
-
+                Utile.tempTodo = todo;
+                CreateTodoDialog.showDialog((MainActivity) context, holder.itemView);
             }
         });
 
@@ -85,12 +81,11 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder{
 
 
-        TextView title,descp,time, date;
+        TextView title,time, date;
         CardView holder;
         public ViewHolder(View itemView) {
             super(itemView);
             title =(TextView) itemView.findViewById(R.id.title);
-            descp =(TextView) itemView.findViewById(R.id.desp);
             time =(TextView) itemView.findViewById(R.id.time);
             date =(TextView) itemView.findViewById(R.id.date);
             holder =(CardView) itemView.findViewById(R.id.holder);

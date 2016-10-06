@@ -17,7 +17,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(context.getString(R.string.action))){
 
             Log.e("AlarmReceiver", "onReceive: ");
-            NotificationUtil.showNotification(context);
+
+            NotificationUtil.showNotification(context,intent.getStringExtra("name"), intent.getStringExtra("id"));
         }
     }
 }

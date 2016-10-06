@@ -8,7 +8,11 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
+import com.marocks.todo.model.ToDoItem;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
   Created by anil on 6/10/16.
@@ -16,20 +20,21 @@ import java.util.Calendar;
 
 public class NotificationUtil {
 
-    public static void createNotification(String pDate, String pTime,Context context) {
+    public static void createNotification(String name,String id, Date date, Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context.getString(R.string.action));
+        intent.putExtra("name",name);
+        intent.putExtra("id",id);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis(), alarmIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP,date==null?Calendar.getInstance().getTimeInMillis():date.getTime(), alarmIntent);
     }
 
 
-    public static void showNotification(Context context){
+    public static void showNotification(Context context, String name,String id){
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.icon)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
+                        .setContentTitle(name);
 // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(context, MainActivity.class);
 
@@ -52,6 +57,16 @@ public class NotificationUtil {
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 // mId allows you to update the notification later on.
-        mNotificationManager.notify(1, mBuilder.build());
+        mNotificationManager.notify(id.hashCode(), mBuilder.build());
+    }
+
+    public static void createNotificationList(ArrayList<ToDoItem> todoList, MainActivity mainActivity) {
+        for (ToDoItem item: todoList) {
+            if (item.getSchedule() != null) {
+                createNotification(item.getDesc(),item.getId(), Utile.getDateParse(item.getSchedule().getDate(), item.getSchedule().getTime()), mainActivity);
+            }
+        }
+
+
     }
 }

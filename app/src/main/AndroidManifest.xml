@@ -18,7 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TodoDetail" />
         <activity android:name=".ui.SignUp" />
         <activity android:name=".ui.LoginView"/>
 

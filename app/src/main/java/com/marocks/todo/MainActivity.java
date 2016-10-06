@@ -35,6 +35,8 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -92,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         });
 
-        NotificationUtil.createNotification("","",this);
         ApiUtil.jsonArrayRequest(this,ApiUtil.todos,null, Request.Method.GET);
         swipeRefreshLayout.setRefreshing(true);
     }
@@ -107,22 +108,22 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             if (Utile.tempTodo != null && adapter!=null) {
                 adapter.addItem(Utile.tempTodo);
                 Utile.clearTempTODO();
-            }
 
+            }
+            swipeRefreshLayout.setRefreshing(true);
+            onRefresh();
         }
     }
 
 
     @Override
     public void onRefresh() {
-        swipeRefreshLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        }, 500);
-
         ApiUtil.jsonArrayRequest(this,ApiUtil.todos,null, Request.Method.GET);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -196,9 +197,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             ArrayList<ToDoItem> todoList = ApiUtil.gson.fromJson(String.valueOf(response), todoListType);
 
             if(adapter!=null){
+                Collections.reverse(todoList);
                 adapter.setData(todoList);
                 adapter.notifyDataSetChanged();
             }
+
+            NotificationUtil.createNotificationList(todoList,this);
 
         }catch (Exception e){
             e.printStackTrace();
