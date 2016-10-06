@@ -7,7 +7,7 @@
     <application
         android:name=".AppController"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -20,7 +20,13 @@
         </activity>
         <activity android:name=".TodoDetail" />
         <activity android:name=".ui.SignUp" />
-        <activity android:name=".ui.LoginView"></activity>
+        <activity android:name=".ui.LoginView"/>
+
+        <receiver android:name="com.marocks.todo.AlarmReceiver" >
+            <intent-filter>
+                <action android:name="NOTIFICATION_ALARM" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -2,11 +2,10 @@ package com.marocks.todo;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
-import com.marocks.todo.model.Todo;
+import com.marocks.todo.model.ToDoItem;
 
 /**
   Created by anil on 23/8/16.
@@ -16,7 +15,7 @@ public class Utile {
 
 
     public static boolean isToDoCreated;
-    public static Todo tempTodo;
+    public static ToDoItem tempTodo;
 
 
     public static final String nameJson = "name";

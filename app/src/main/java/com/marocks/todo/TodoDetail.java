@@ -1,10 +1,12 @@
 package com.marocks.todo;
 
+import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -20,7 +22,8 @@ public class TodoDetail extends AppCompatActivity {
     }
 
     private void init() {
-
+        SharedPreferences sh = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+        Log.e("access",sh.getString(Utile.autTokenJson, null));
 
        ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null){
@@ -34,8 +37,8 @@ public class TodoDetail extends AppCompatActivity {
             title=(TextView) findViewById(R.id.title);
             desp=(TextView) findViewById(R.id.desp);
             holder=(CardView) findViewById(R.id.holder);
-            title.setText(Utile.tempTodo.getTitle());
-            desp.setText(Utile.tempTodo.getDescrption());
+            title.setText(Utile.tempTodo.getSchedule_name());
+            desp.setText(Utile.tempTodo.getDesc());
             holder.setBackgroundColor(ContextCompat.getColor(this,Utile.getPriorityColor(Utile.tempTodo.getPriority())));
 
         }else{

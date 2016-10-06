@@ -14,7 +14,6 @@
                 <android.support.v7.widget.RecyclerView
                     android:visibility="visible"
                     android:id="@+id/todoList"
-                    android:paddingTop="4dp"
                     android:background="@android:color/transparent"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>

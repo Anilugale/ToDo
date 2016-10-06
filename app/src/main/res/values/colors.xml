@@ -8,4 +8,5 @@
     <color name="cardBG3">#f7eeec</color>
     <color name="cardBG4">#ecf7f1</color>
     <color name="cardBG5">#f2ecf7</color>
+    <color name="grey">#ababab</color>
 </resources>

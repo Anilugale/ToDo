@@ -1,6 +1,8 @@
 package com.marocks.todo.ui;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +11,13 @@ import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
+import com.marocks.todo.MainActivity;
 import com.marocks.todo.R;
 import com.marocks.todo.Utile;
 import com.marocks.todo.api.ApiUtil;
 import com.marocks.todo.api.HandleResponce;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,13 +74,19 @@ public class LoginView extends AppCompatActivity implements HandleResponce {
                 String autTokenJson= response.getString(Utile.autTokenJson);
                 SharedPreferences sh = getSharedPreferences(getPackageName(),MODE_PRIVATE);
                 sh.edit().putString(Utile.autTokenJson,autTokenJson).apply();
+                startActivity(new Intent(this, MainActivity.class));
                 finish();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
         }
-        System.out.println(response.toString());
+
+    }
+
+    @Override
+    public void onResponse(JSONArray response) {
 
     }
 
@@ -94,5 +104,15 @@ public class LoginView extends AppCompatActivity implements HandleResponce {
         if(progressDialog!=null){
             progressDialog.dismiss();
         }
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
+    public void toSignUp(View view) {
+        startActivity(new Intent(this,SignUp.class));
+
     }
 }

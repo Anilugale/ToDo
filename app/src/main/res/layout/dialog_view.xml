@@ -1,57 +1,123 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/reveal_view"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="900dp"
+    android:minHeight="400dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="8dp"
     android:paddingTop="8dp"
     android:background="@android:color/white"
-    android:visibility="invisible">
+    android:visibility="visible">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="First Name"
+            android:hint="Take a note"
             android:layout_marginTop="20dp"
+            android:gravity="top"
+            android:minHeight="100dp"
+            android:maxLines="5"
             android:textColor="@android:color/black"/>
         <EditText
+            android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Last Name"
+            android:editable="false"
+            android:hint="Date"
+            android:drawableRight="@android:drawable/ic_menu_my_calendar"
             android:textColor="@android:color/black"/>
         <EditText
+            android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:hint="Additional Info"
+            android:drawableRight="@android:drawable/ic_menu_camera"
+            android:hint="time"
+            android:editable="false"
             android:textColor="@android:color/black"/>
 
         <RadioGroup
+            android:id="@+id/radioGrp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp">
 
             <RadioButton
+                android:id="@+id/daily"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Male"
+                android:text="Daily"
+                android:checked="true"
                 android:textColor="@android:color/black"/>
 
             <RadioButton
+                android:id="@+id/weekly"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Female"
+                android:text="Weekly"
                 android:textColor="@android:color/black"/>
 
         </RadioGroup>
+        <LinearLayout
+            android:id="@+id/weekly_layout"
+            android:visibility="gone"
+            android:paddingTop="10dp"
+            android:gravity=""
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <CheckBox
+                android:id="@+id/sun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S"
+                android:textColor="@android:color/black"/>
+            <CheckBox
+                android:id="@+id/mon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="M"
+                android:textColor="@android:color/black"/>
+            <CheckBox
+                android:id="@+id/tus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T"
+                android:textColor="@android:color/black"/>
+            <CheckBox
+                android:id="@+id/wen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="W"
+                android:textColor="@android:color/black"/>
+            <CheckBox
+                android:id="@+id/the"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TH"
+                android:textColor="@android:color/black"/>
+            <CheckBox
+                android:id="@+id/fir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="F"
+                android:textColor="@android:color/black"/>
+            <CheckBox
+                android:id="@+id/sat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S"
+                android:textColor="@android:color/black"/>
+
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

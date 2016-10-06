@@ -15,10 +15,9 @@ import com.marocks.todo.MainActivity;
 import com.marocks.todo.R;
 import com.marocks.todo.TodoDetail;
 import com.marocks.todo.Utile;
-import com.marocks.todo.model.Todo;
-import com.marocks.todo.ui.LoginView;
-import com.marocks.todo.ui.SignUp;
+import com.marocks.todo.model.ToDoItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,9 +26,9 @@ import java.util.List;
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
 
     Context context;
-    List<Todo> dataList;
+    public List<ToDoItem> dataList;
 
-    public ToDoAdapter(Context context, List<Todo> dataList) {
+    public ToDoAdapter(Context context, List<ToDoItem> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
@@ -42,18 +41,23 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        final Todo todo = dataList.get(position);
-        holder.title.setText(todo.getTitle());
-        holder.descp.setText(todo.getDescrption());
+        final ToDoItem todo = dataList.get(position);
+        holder.title.setText(todo.getSchedule_name());
+        holder.descp.setText(todo.getDesc());
+        if(todo.getSchedule()!=null){
+            holder.date.setText(todo.getSchedule().getDate() != null ? todo.getSchedule().getDate() : "");
+            holder.time.setText(todo.getSchedule().getTime() != null ? todo.getSchedule().getTime() : "");
+        }
         holder.holder.setBackgroundColor(ContextCompat.getColor(context, Utile.getPriorityColor(todo.getPriority())));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,LoginView.class);
+                Intent intent = new Intent(context,TodoDetail.class);
                 Utile.tempTodo=todo;
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((MainActivity)context, (View)holder.holder, "holder");
                 context.startActivity(intent, options.toBundle());
+
             }
         });
 
@@ -64,20 +68,31 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
         return dataList.size();
     }
 
-    public void addItem(Todo tempTodo) {
+    public void addItem(ToDoItem tempTodo) {
         dataList.add(tempTodo);
         notifyDataSetChanged();
+    }
+
+    public void setData(ArrayList<ToDoItem> data) {
+        this.dataList.clear();
+        this.dataList.addAll(data);
+    }
+
+    public ToDoItem getItemAt(int position) {
+        return  dataList.get(position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
 
-        TextView title,descp;
+        TextView title,descp,time, date;
         CardView holder;
         public ViewHolder(View itemView) {
             super(itemView);
             title =(TextView) itemView.findViewById(R.id.title);
             descp =(TextView) itemView.findViewById(R.id.desp);
+            time =(TextView) itemView.findViewById(R.id.time);
+            date =(TextView) itemView.findViewById(R.id.date);
             holder =(CardView) itemView.findViewById(R.id.holder);
         }
     }

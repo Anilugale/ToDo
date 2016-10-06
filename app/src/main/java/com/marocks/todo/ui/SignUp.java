@@ -1,6 +1,9 @@
 package com.marocks.todo.ui;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import com.marocks.todo.Utile;
 import com.marocks.todo.api.ApiUtil;
 import com.marocks.todo.api.HandleResponce;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,9 +30,10 @@ public class SignUp extends AppCompatActivity implements HandleResponce {
     }
 
     private void init() {
-
-
-
+        SharedPreferences sh = getSharedPreferences(getPackageName(),MODE_PRIVATE);
+        if(sh.getString(Utile.autTokenJson,null) != null){
+            init();
+        }
     }
 
     public void submit(View view) {
@@ -89,6 +94,12 @@ public class SignUp extends AppCompatActivity implements HandleResponce {
 
         dismissProgressBar();
         System.out.println(response.toString());
+        startActivity(new Intent(this,LoginView.class));
+        finish();
+    }
+
+    @Override
+    public void onResponse(JSONArray response) {
 
     }
 
@@ -101,5 +112,10 @@ public class SignUp extends AppCompatActivity implements HandleResponce {
         if(progressDialog!=null){
             progressDialog.dismiss();
         }
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 }
