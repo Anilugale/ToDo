@@ -1,3 +1,8 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/reveal_view"
     android:orientation="vertical"
@@ -23,7 +28,9 @@
             android:layout_marginTop="20dp"
             android:gravity="top"
             android:minHeight="100dp"
+            android:focusableInTouchMode="true"
             android:maxLines="5"
+            android:imeOptions="actionNext"
             android:textColor="@android:color/black"/>
         <EditText
             android:id="@+id/date"
@@ -31,16 +38,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:editable="false"
+            android:imeOptions="actionNext"
             android:hint="Date"
-            android:drawableRight="@android:drawable/ic_menu_my_calendar"
+            android:drawableRight="@drawable/date"
             android:textColor="@android:color/black"/>
         <EditText
             android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:drawableRight="@android:drawable/ic_menu_camera"
+            android:drawableRight="@drawable/time"
             android:hint="time"
+            android:imeOptions="actionNext"
             android:editable="false"
             android:textColor="@android:color/black"/>
 
@@ -143,3 +152,4 @@
             android:background="?android:attr/selectableItemBackground"/>
     </LinearLayout>
 </RelativeLayout>
+</ScrollView>

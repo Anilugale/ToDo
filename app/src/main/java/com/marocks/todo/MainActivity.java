@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     public void AddTodo(View view) {
+        Utile.tempTodo = null;
         CreateTodoDialog.showDialog(this, view);
     }
 
@@ -253,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                             isRealyDelete = false;
                             adapter.dataList.add(position,itemToDelete);
                             adapter.notifyItemInserted(position);
-                            Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "TODO is Revert!"+isRealyDelete, Snackbar.LENGTH_SHORT);
+                            Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "TODO is Revert!", Snackbar.LENGTH_SHORT);
                             snackbar1.show();
                         }
                     }).setCallback(new Snackbar.Callback() {
@@ -263,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                             if(isRealyDelete){
                                 ApiUtil.jsonRequest(MainActivity.this,ApiUtil.todos+"/"+itemToDelete.getId(),new JSONObject(), Request.Method.DELETE);
-                                Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "TODO is deleted !"+isRealyDelete, Snackbar.LENGTH_SHORT);
+                                Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "TODO is deleted !", Snackbar.LENGTH_SHORT);
                                 snackbar1.show();
                             }
                         }

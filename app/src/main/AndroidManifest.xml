@@ -12,20 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".ui.SignUp" />
+        <activity android:name=".ui.LoginView" />
+
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="NOTIFICATION_ALARM" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".Splash"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.SignUp" />
-        <activity android:name=".ui.LoginView"/>
-
-        <receiver android:name="com.marocks.todo.AlarmReceiver" >
-            <intent-filter>
-                <action android:name="NOTIFICATION_ALARM" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

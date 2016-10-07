@@ -47,7 +47,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
             holder.time.setText(dateSrtr);
         }
 
-        holder.holder.setBackgroundColor(ContextCompat.getColor(context, Utile.getPriorityColor(position%10)));
+        //holder.holder.setBackgroundColor(ContextCompat.getColor(context, Utile.getPriorityColor(position%10)));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
