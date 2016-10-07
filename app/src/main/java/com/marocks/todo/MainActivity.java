@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
@@ -215,8 +216,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         swipeRefreshLayout.setRefreshing(false);
 
         if(error!=null && error.networkResponse!=null && error.networkResponse.statusCode == 500){
-            startActivity(new Intent(this,LoginView.class));
-            finish();
+            Toast.makeText(this,"ohh! Something went wrong!",Toast.LENGTH_SHORT).show();
         }
     }
 

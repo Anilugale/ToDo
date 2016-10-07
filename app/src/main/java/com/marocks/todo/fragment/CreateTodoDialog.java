@@ -50,7 +50,7 @@ public  class CreateTodoDialog {
         AlertDialog.Builder builder =  new AlertDialog.Builder(context);
         builder.setView(dialogView)
                 .setCancelable(false);
-        final TextView note= (TextView) dialogView.findViewById(R.id.note);
+        final EditText note= (EditText) dialogView.findViewById(R.id.note);
         final EditText dateTx= (EditText) dialogView.findViewById(R.id.date);
         final EditText time= (EditText) dialogView.findViewById(R.id.time);
         final RadioGroup radioGroup= (RadioGroup) dialogView.findViewById(R.id.radioGrp);
@@ -221,6 +221,9 @@ public  class CreateTodoDialog {
             note.setText(Utile.tempTodo.getDesc());
             dateTx.setText(Utile.tempTodo.getSchedule().getDate());
             time.setText(Utile.getTimeParse(Utile.tempTodo.getSchedule().getTime()));
+
+            int pos = note.getText().length();
+            note.setSelection(pos);
        }
 
 
