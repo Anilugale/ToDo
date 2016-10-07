@@ -82,6 +82,7 @@
             android:paddingTop="10dp"
             android:gravity=""
             android:layout_width="match_parent"
+            android:layout_marginBottom="100dp"
             android:layout_height="wrap_content">
             <CheckBox
                 android:id="@+id/sun"
@@ -128,28 +129,30 @@
 
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
+    <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="50dp">
         <Button
             android:id="@+id/btn_cancel"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Cancel"
+            android:layout_toLeftOf="@+id/btn_save"
             android:textColor="@color/colorAccent"
             android:background="?android:attr/selectableItemBackground"/>
         <Button
             android:id="@+id/btn_save"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Save"
+            android:layout_alignParentRight="true"
             android:textColor="@color/colorAccent"
             android:background="?android:attr/selectableItemBackground"/>
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
 </ScrollView>
