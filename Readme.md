@@ -1,13 +1,10 @@
 ToDo
 =======
 
-
+[download Apk from ](https://github.com/Anilugale/ToDo/blob/master/Todo.apk)
 
 ![](smaple.png)
 
-For more information please see [the website][1]
-
-![](ToDo.apk)
 
 ![](screens/s1.png)
 
