@@ -202,6 +202,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 Collections.reverse(todoList);
                 adapter.setData(todoList);
                 adapter.notifyDataSetChanged();
+                if(todoList!=null && todoList.size()==0){
+                    AddTodo(findViewById(R.id.fab));
+                }
             }
 
             NotificationUtil.createNotificationList(todoList,this);
