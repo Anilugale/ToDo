@@ -1,10 +1,14 @@
 package com.marocks.todo.model;
 
+import com.marocks.todo.Utile;
+
+import java.util.Date;
+
 /**
   Created by anil on 23/8/16.
  */
 
-public class ToDoItem
+public class ToDoItem implements Comparable<ToDoItem>
 {
     private String id;
 
@@ -19,8 +23,10 @@ public class ToDoItem
     private String i_cal;
 
     private String state;
+
     int priority;
 
+    long miliSecound;
     public String getId ()
     {
         return id;
@@ -102,5 +108,14 @@ public class ToDoItem
 
     public void setPriority(int priority) {
         this.priority = priority;
+    }
+
+    public void calTime() {
+        miliSecound = Utile.getDateParse(schedule.getDate(),schedule.getTime()).getTime();
+    }
+
+    @Override
+    public int compareTo(ToDoItem o) {
+        return miliSecound>o.miliSecound?0:-1;
     }
 }

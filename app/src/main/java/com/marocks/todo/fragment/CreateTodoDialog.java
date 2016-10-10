@@ -146,7 +146,7 @@ public  class CreateTodoDialog {
             }
         });
 
-        Calendar now = Calendar.getInstance();
+        final Calendar now = Calendar.getInstance();
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.show();
         String date = now.get(Calendar.YEAR)+ "-"+(now.get(Calendar.MONTH) + 1)+"-" + now.get(Calendar.DAY_OF_MONTH);
@@ -155,7 +155,7 @@ public  class CreateTodoDialog {
             @Override
             public void onClick(final View v) {
 
-                Calendar now = Calendar.getInstance();
+
                 DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -165,16 +165,25 @@ public  class CreateTodoDialog {
                     }
                 };
 
+
                 DatePickerDialog dpd = new DatePickerDialog(
                         mainActivity,listener,
                         now.get(Calendar.YEAR),
                         now.get(Calendar.MONTH),
                         now.get(Calendar.DAY_OF_MONTH)
-                );
+                ){
+                    @Override
+                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+                    {
+                        view.setMinDate(System.currentTimeMillis());
+                    }
+                };
 
                 dpd.show();
             }
         });
+
+
         String timestr =now.get(Calendar.HOUR_OF_DAY)+ ":"+(now.get(Calendar.MINUTE) + 1);
         ((EditText)dialog.findViewById(R.id.time)).setText(timestr);
         dialog.findViewById(R.id.time).setOnClickListener(new View.OnClickListener() {

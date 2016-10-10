@@ -46,8 +46,13 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
            String dateSrtr =Utile.formattedDate(todo.getSchedule().getDate(),todo.getSchedule().getTime());
             holder.time.setText(dateSrtr);
         }
-
-        //holder.holder.setBackgroundColor(ContextCompat.getColor(context, Utile.getPriorityColor(position%10)));
+        if(Utile.getDateParse(todo.getSchedule().getDate(), todo.getSchedule().getTime()).getTime()<=System.currentTimeMillis()) {
+            holder.status.setVisibility(View.VISIBLE);
+            holder.holder.setBackgroundColor(ContextCompat.getColor(context, R.color.cardBG1));
+        }else{
+            holder.status.setVisibility(View.GONE);
+            holder.holder.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white));
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,13 +86,14 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder{
 
 
-        TextView title,time, date;
+        TextView title,time, date ,status;
         CardView holder;
         public ViewHolder(View itemView) {
             super(itemView);
             title =(TextView) itemView.findViewById(R.id.title);
             time =(TextView) itemView.findViewById(R.id.time);
             date =(TextView) itemView.findViewById(R.id.date);
+            status =(TextView) itemView.findViewById(R.id.status);
             holder =(CardView) itemView.findViewById(R.id.holder);
         }
     }

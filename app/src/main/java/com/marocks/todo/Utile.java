@@ -10,6 +10,7 @@ import com.marocks.todo.model.ToDoItem;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -145,5 +146,13 @@ public class Utile {
 
         schedule_name = schedule_name.split("T")[1];
         return schedule_name.substring(0,8);
+    }
+
+    public static void calculateTime(ArrayList<ToDoItem> list){
+
+        for (ToDoItem item:list){
+            item.calTime();
+        }
+
     }
 }

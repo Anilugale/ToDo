@@ -25,7 +25,7 @@ public class NotificationUtil {
         Intent intent = new Intent(context.getString(R.string.action));
         intent.putExtra("name",name);
         intent.putExtra("id",id);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context,(Integer.valueOf(id)) , intent, 0);
         alarmManager.set(AlarmManager.RTC_WAKEUP,date==null?Calendar.getInstance().getTimeInMillis():date.getTime(), alarmIntent);
     }
 
@@ -61,9 +61,16 @@ public class NotificationUtil {
     }
 
     public static void createNotificationList(ArrayList<ToDoItem> todoList, MainActivity mainActivity) {
+        AlarmManager alarmManager = (AlarmManager) mainActivity.getSystemService(Context.ALARM_SERVICE);
         for (ToDoItem item: todoList) {
             if (item.getSchedule() != null) {
-                createNotification(item.getDesc(),item.getId(), Utile.getDateParse(item.getSchedule().getDate(), item.getSchedule().getTime()), mainActivity);
+                Intent intent = new Intent(mainActivity.getString(R.string.action));
+                intent.putExtra("name",item.getDesc());
+                intent.putExtra("id",item.getId());
+                alarmManager.cancel( PendingIntent.getBroadcast(mainActivity,(Integer.valueOf(item.getId())) , intent, 0));
+                if(Utile.getDateParse(item.getSchedule().getDate(), item.getSchedule().getTime()).getTime()>System.currentTimeMillis()) {
+                    createNotification(item.getDesc(), item.getId(), Utile.getDateParse(item.getSchedule().getDate(), item.getSchedule().getTime()), mainActivity);
+                }
             }
         }
 

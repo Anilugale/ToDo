@@ -197,9 +197,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }.getType();
 
             ArrayList<ToDoItem> todoList = ApiUtil.gson.fromJson(String.valueOf(response), todoListType);
+            Utile.calculateTime(todoList);
 
             if(adapter!=null){
-                Collections.reverse(todoList);
+               // Collections.reverse(todoList);
                 adapter.setData(todoList);
                 adapter.notifyDataSetChanged();
                 if(todoList!=null && todoList.size()==0){
