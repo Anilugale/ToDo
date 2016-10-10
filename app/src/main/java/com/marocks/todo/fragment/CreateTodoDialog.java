@@ -207,7 +207,7 @@ public  class CreateTodoDialog {
                 };
                 Calendar now = Calendar.getInstance();
                 TimePickerDialog dpd = new TimePickerDialog(
-                        mainActivity,listener,now.HOUR,now.MINUTE,false);
+                        mainActivity,listener,now.HOUR_OF_DAY,now.MINUTE+1,true);
 
 
                 dpd.show();
